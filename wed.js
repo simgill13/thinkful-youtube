@@ -41,7 +41,6 @@ function watchSubmit() {
     e.preventDefault();
     var query = $(this).find('.js-query').val();
     getDataFromApi(query, displayYouTubeData);
-    nextPage();
   });
 }
 

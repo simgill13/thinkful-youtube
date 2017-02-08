@@ -1,9 +1,4 @@
 
-
-
-
-
-
 var youtubeApiURL = 'https://www.googleapis.com/youtube/v3/search';
 
 function getDataFromApi(searchTerm, callback) {
@@ -11,7 +6,8 @@ function getDataFromApi(searchTerm, callback) {
     q: searchTerm,
     key: 'AIzaSyASKTdVhfhbiBkbUPi92NOLGmglcIlbu3o',
     part: 'snippet',
-    maxResults: 4
+    maxResults: 4,
+    pageToken: ""
   }
   
   $.getJSON(youtubeApiURL, query, callback);
@@ -23,26 +19,21 @@ function getDataFromApi(searchTerm, callback) {
 function displayYouTubeData(data) {
     var id = '';
     var resultElement = '';
-    console.log(data);
     if (data.items) {
-        var newArray = data.items.map(function(item, index) {
-            var currentVid = item.snippet.thumbnails.medium.url;
-            var videoId = item.id.videoId;
-            return `<li> <iframe width="560" height="315"  src= "https://www.youtube.com/embed/${videoId}" target="_blank"> </iframe>    </li>`;
-            
-           
-        });
-      console.log(newArray);
-
-       $('.js-search-results').html(newArray);
-
+      var newArray = data.items.map(function(item, index) {
+          var currentVid = item.snippet.thumbnails.medium.url;
+          var videoId = item.id.videoId;
+          
+          return `<li> <iframe width="560" height="315"  src= "https://www.youtube.com/embed/${videoId}" target="_blank"> </iframe>    </li>`; 
+      });
+      $('.js-search-results').html(newArray);
     }
-
 }
 
-
-
-
+// function nextPage(data) {
+//   // var next = data.nextPageToken;  
+//   console.log(data);
+// };
 
 
 function watchSubmit() {
@@ -50,10 +41,12 @@ function watchSubmit() {
     e.preventDefault();
     var query = $(this).find('.js-query').val();
     getDataFromApi(query, displayYouTubeData);
+    nextPage();
   });
 }
 
-$(function(){watchSubmit();});
+$(function(){watchSubmit()});
+
 
 
 

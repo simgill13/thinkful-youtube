@@ -1,16 +1,15 @@
 var OMDB_BASE_URL = 'https://www.googleapis.com/youtube/v3/search';
 
 function getDataFromApi(searchTerm, callback) {
-  console.log(searchTerm);
   var query = {
     q: searchTerm,
     key: 'AIzaSyASKTdVhfhbiBkbUPi92NOLGmglcIlbu3o',
-    part: 'snippet'
+    part: 'snippet',
+    maxResults: 10
   }
   
   $.getJSON(OMDB_BASE_URL, query, callback);
 }
-
 
 
 function displayOMDBSearchData(data) {
@@ -22,10 +21,10 @@ var list= []
         
     }
     $('.js-search-results').html(`<ul> <li> ${list} </li> </ul>`);
-      
+    
 }
-
-
+// $('.js-search-results').append($('<img src = 'thumbnails'/>'));
+var findImage = $('.js-search-results').find('img').attr('src', thumbnails);
 
 
 

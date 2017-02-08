@@ -1,4 +1,10 @@
 
+var state = {
+  videoId: [],
+  currentVidUrl: [],
+  nextPageToken: "",
+  totalResults: []
+};
 
 var youtubeApiURL = 'https://www.googleapis.com/youtube/v3/search';
 
@@ -15,20 +21,12 @@ function getDataFromApi(searchTerm, callback) {
 }
 
 
-
-
 function displayYouTubeData(data) {
-    var id = '';
-    var resultElement = '';
-    if (data.items) {
-      var newArray = data.items.map(function(item, index) {
-          var currentVid = item.snippet.thumbnails.medium.url;
-          var videoId = item.id.videoId;
-          
-          return `<li> <iframe width="560" height="315"  src= "https://www.youtube.com/embed/${videoId}" target="_blank"> </iframe>    </li>`; 
-      });
-      $('.js-search-results').html(newArray);
-    }
+  if (data){
+    // state.videoId.push(data.items.id);
+    console.log(data.items[]);
+   
+  }
 }
 
 // function nextPage(data) {
